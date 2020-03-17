@@ -26,7 +26,7 @@ namespace HealthMedicine.Controllers
                     name = collection["searchMedicine"],
                     stock = int.Parse(collection["quantity"])
                 };
-                var found = Storage.Storage.Instance.avlTree.(element, Medicine.CompareByName);
+                var found = Storage.Storage.Instance.avlTree(element, Medicine.CompareByName); //Add Search method
                 var elementToList = from s in Storage.Storage.Instance.medicinesList
                                     select s;
                 elementToList = elementToList.Where(s => s.name.Contains(found.name));

@@ -21,10 +21,10 @@ namespace CustomGenerics.Structures{
             DeleteValue(deleteElement, comparison);
         }
 
-        public T searchValue(T value, Comparison<T> comparison)
-        {
-            SearchValue(value, comparison);
-        }
+        //public T searchValue(T value, Comparison<T> comparison)
+        //{
+        //    SearchValue(value, comparison);
+        //}
 
         public IEnumerator<T> GetEnumerator(){
             throw new NotImplementedException();
@@ -51,15 +51,15 @@ namespace CustomGenerics.Structures{
             }
         }
 
-        public T SearchValue(Node<T> node,T value, Comparison<T> comparison)
-        {
-            if(contains(node, value, comparison))
-            {
-                return value;
-            }
-            return value;
+        //public T SearchValue(Node<T> node,T value, Comparison<T> comparison)
+        //{
+        //    if(contains(node, value, comparison))
+        //    {
+        //        return value;
+        //    }
+        //    return value;
             
-        }
+        //}
 
         protected override void InsertValue(T value, Comparison<T> comparison){
             Node<T> newNode = new Node<T>(value);
