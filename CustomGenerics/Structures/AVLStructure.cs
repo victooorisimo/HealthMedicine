@@ -21,6 +21,11 @@ namespace CustomGenerics.Structures{
             DeleteValue(deleteElement, comparison);
         }
 
+        public T searchValue(T value, Comparison<T> comparison)
+        {
+            SearchValue(value, comparison);
+        }
+
         public IEnumerator<T> GetEnumerator(){
             throw new NotImplementedException();
         }
@@ -34,6 +39,7 @@ namespace CustomGenerics.Structures{
             return value;
         }
 
+
         private bool contains(Node<T> root, T value, Comparison<T> comparison){
             if (root == null) return false;
             if (comparison.Invoke(root.getValue(), value) == 0){
@@ -43,6 +49,16 @@ namespace CustomGenerics.Structures{
                 else if (contains(root.getLeftNode(), value, comparison)) { return true; }
                 return false;
             }
+        }
+
+        public T SearchValue(Node<T> node,T value, Comparison<T> comparison)
+        {
+            if(contains(node, value, comparison))
+            {
+                return value;
+            }
+            return value;
+            
         }
 
         protected override void InsertValue(T value, Comparison<T> comparison){

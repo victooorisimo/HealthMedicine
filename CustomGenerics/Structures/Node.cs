@@ -81,7 +81,6 @@ namespace CustomGenerics.Structures {
             nodeRotate.bf = left - right;
             nodeRotate.height = (right > left ? right : left) + 1;
             return nodeRotate;
-
         }
 
         public Node<T> removeElement(Node<T> root, T value, Comparison<T> comparison) {
