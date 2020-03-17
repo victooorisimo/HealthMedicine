@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using HealthMedicine.Storage;
 
 namespace HealthMedicine.Models {
     public class Order {
@@ -12,5 +13,22 @@ namespace HealthMedicine.Models {
         public double Total { get; set; }
 
         public List<Order> orders = new List<Order>();
+
+        public bool saveOrder()
+        {
+            try
+            {
+                codeClient++;
+                this.ClientId = codeClient;
+                Storage.Storage.Instance.newOrder = this;
+                Storage.Storage.Instance.orderList.Add(Storage.Storage.Instance.newOrder);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
     }
 }
