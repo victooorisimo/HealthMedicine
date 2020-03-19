@@ -72,21 +72,17 @@ namespace HealthMedicine.Controllers {
 
         [HttpPost]
         public ActionResult LoadDocument(HttpPostedFileBase file){
-            string path = Server.MapPath($"~/Files/{file.FileName}");
-            try{
-                using (var fileStream = new FileStream(path, FileMode.Open)){
+            try {
+                using (var fileStream = new FileStream(file.FileName, FileMode.Open)){
                     using (var streamReader = new StreamReader(fileStream)){
                         Medicine newMedicine = new Medicine();
-                        while (streamReader.Peek() >= 0) {
+                        while (streamReader.Peek() >= 0){
                             String lineReader = streamReader.ReadLine();
                             String[] parts = lineReader.Split(',');
-                            if(parts[0] != ("id")){
+                            if (parts[0] != ("id")){
                                 if (parts.Length == 6){
                                     newMedicine.idMedicine = Convert.ToInt32(parts[0]);
                                     newMedicine.name = parts[1];
-
-                                }else {
-
                                 }
                             }
 
@@ -94,8 +90,8 @@ namespace HealthMedicine.Controllers {
                     }
 
                 }
-                    return RedirectToAction("Index");
-            }catch (Exception e) {
+                return RedirectToAction("Index");
+            }catch (Exception e){
                 e.ToString();
                 return RedirectToAction("Index");
             }
