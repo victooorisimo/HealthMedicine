@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HealthMedicine.Services;
+using System;
 
 namespace HealthMedicine.Models {
     public class Medicine {
@@ -13,6 +14,26 @@ namespace HealthMedicine.Models {
         public Medicine() {
 
         }
+
+        public bool saveMedicine(bool structure) {
+            if (structure){
+                Storage.Instance.avlTree.addElement(this, Medicine.CompareByName);
+            }else{
+                Storage.Instance.medicinesList.Add(this);
+            }
+            return true;
+        }
+
+        public bool deleteMedicine() {
+            try{
+                Storage.Instance.avlTree.deleteElement(this, Medicine.CompareByName);
+                return true;
+            }
+            catch{
+                return false;
+            }
+        }
+
 
         public static Comparison<Medicine> CompareByName = delegate (Medicine medicine_one, Medicine medicine_two) {
             return medicine_one.name.ToLower().CompareTo(medicine_two.name.ToLower());

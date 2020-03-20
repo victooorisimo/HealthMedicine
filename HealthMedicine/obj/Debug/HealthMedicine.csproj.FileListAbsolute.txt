@@ -82,3 +82,7 @@ C:\Users\vict_\source\repos\HealthMedicine\HealthMedicine\obj\Debug\HealthMedici
 C:\Users\vict_\source\repos\HealthMedicine\HealthMedicine\obj\Debug\HealthMedicine.csproj.CopyComplete
 C:\Users\vict_\source\repos\HealthMedicine\HealthMedicine\obj\Debug\HealthMedicine.dll
 C:\Users\vict_\source\repos\HealthMedicine\HealthMedicine\obj\Debug\HealthMedicine.pdb
+C:\Users\vict_\source\repos\HealthMedicine\HealthMedicine\bin\PagedList.dll
+C:\Users\vict_\source\repos\HealthMedicine\HealthMedicine\bin\PagedList.Mvc.dll
+C:\Users\vict_\source\repos\HealthMedicine\HealthMedicine\bin\PagedList.xml
+C:\Users\vict_\source\repos\HealthMedicine\HealthMedicine\bin\PagedList.Mvc.xml

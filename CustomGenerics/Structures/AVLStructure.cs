@@ -2,15 +2,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CustomGenerics.Structures{
 
     public class AVLStructure<T> : DataStructure<T>, IEnumerable<T>{
 
-        private Node<T> root;
+        private Node<T> root = new Node<T>();
         private int size;
 
         public void addElement(T newElement, Comparison<T> comparison){
@@ -34,6 +31,7 @@ namespace CustomGenerics.Structures{
             return value;
         }
 
+
         private bool contains(Node<T> root, T value, Comparison<T> comparison){
             if (root == null) return false;
             if (comparison.Invoke(root.getValue(), value) == 0){
@@ -47,7 +45,11 @@ namespace CustomGenerics.Structures{
 
         protected override void InsertValue(T value, Comparison<T> comparison){
             Node<T> newNode = new Node<T>(value);
-            root = root.addNodeElement(root, newNode, comparison);
+            if (size == 0){
+                root = root.addNodeElement(null, newNode, comparison);
+            }else {
+                root = root.addNodeElement(root, newNode, comparison);
+            }
             size++;
         }
 

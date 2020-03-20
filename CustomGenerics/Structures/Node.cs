@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CustomGenerics.Structures {
     class Node<T> {
@@ -81,7 +77,6 @@ namespace CustomGenerics.Structures {
             nodeRotate.bf = left - right;
             nodeRotate.height = (right > left ? right : left) + 1;
             return nodeRotate;
-
         }
 
         public Node<T> removeElement(Node<T> root, T value, Comparison<T> comparison) {
@@ -122,6 +117,8 @@ namespace CustomGenerics.Structures {
         public Node(T value) {
             setValue(value);
         }
+
+        public Node() { }
 
         public void setValue(T value) {
             this.valueNode = value;
