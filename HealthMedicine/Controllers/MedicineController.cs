@@ -15,57 +15,59 @@ namespace HealthMedicine.Controllers
         // GET: Medicine
         public ActionResult Index(FormCollection collection, int? page, string searchMedicine, string quantity, string resupply)
         {
-            //int pageSize = 5;
-            //int pageIndex = 1;
-            //double Total = 0;
-            //pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
-            //if (!String.IsNullOrEmpty(searchMedicine) && !String.IsNullOrEmpty(quantity))
-            //{
-            //    var element = new Medicine
-            //    {
-            //        name = collection["searchMedicine"],
-            //        stock = int.Parse(collection["quantity"])
-            //    };
-            //    var found = Storage.Storage.Instance.avlTree(element, Medicine.CompareByName); //Add Search method
-            //    var elementToList = from s in Storage.Storage.Instance.medicinesList
-            //                        select s;
-            //    elementToList = elementToList.Where(s => s.name.Contains(found.name));
-            //    if (element.stock <= found.stock)
-            //    {
-            //        elementToList = elementToList.Where(s => s.name.Contains(found.name));
-            //        int newValue = Storage.Storage.Instance.medicinesList.Find(s => s.name.Contains(found.name)).stock;
-            //        Storage.Storage.Instance.medicinesList.Find(s => s.name.Contains(found.name)).stock = newValue - element.stock;
-            //        Total = Convert.ToDouble(quantity) * found.price;
-            //        Storage.Storage.Instance.newOrder.Total = +Total;
-            //        return View(elementToList.ToPagedList(pageIndex, pageSize));
-            //    }
-            //}
+            int pageSize = 5;
+            int pageIndex = 1;
+            bool searchM;
+            double Total = 0;
+            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+            if (!String.IsNullOrEmpty(searchMedicine) && !String.IsNullOrEmpty(quantity))
+            {
+                var element = new Medicine
+                {
+                    name = collection["searchMedicine"],
+                    stock = int.Parse(collection["quantity"])
+                };
 
-            //if (!String.IsNullOrEmpty(resupply))
-            //{
-            //    Resupply();
-            //}
+                var found = Storage.Instance.avlTree.searchValue(element, Medicine.CompareByName);
+                    var elementToList = from s in Storage.Instance.medicinesList
+                                        select s;
+                    elementToList = elementToList.Where(s => s.name.Contains(found.name));
+                    if (element.stock <= found.stock)
+                    {
+                        elementToList = elementToList.Where(s => s.name.Contains(found.name));
+                        int newValue = Storage.Instance.medicinesList.Find(s => s.name.Contains(found.name)).stock;
+                        Storage.Instance.medicinesList.Find(s => s.name.Contains(found.name)).stock = newValue - element.stock;
+                        Total = Convert.ToDouble(quantity) * found.price;
+                        Storage.Instance.newOrder.Total = +Total;
+                        return View(elementToList.ToPagedList(pageIndex, pageSize));
+                    }
+            }
 
-            //Storage.Storage.Instance.medicinesReturn.Clear();
+            if (!String.IsNullOrEmpty(resupply))
+            {
+                Resupply();
+            }
 
-            //foreach (var item in Storage.Storage.Instance.medicinesList)
-            //{
-            //    if (item.stock == 0)
-            //    {
-            //        Storage.Storage.Instance.avlTree.deleteElement(item, Medicine.CompareByName);
-            //    }
-            //    else if (item.stock != 0)
-            //    {
-            //        Storage.Storage.Instance.medicinesReturn.Add(item);
-            //    }
-            //}
+            Storage.Instance.medicinesReturn.Clear();
 
-            //IPagedList<Medicine> listMedicines = null;
-            //List<Medicine> auxiliarMed = new List<Medicine>();
-            //auxiliarMed = Storage.Storage.Instance.medicinesReturn;
-            //listMedicines = auxiliarMed.ToPagedList(pageIndex, pageSize);
-            //return View(listMedicines);
-            return View();
+            foreach (var item in Storage.Instance.medicinesList)
+            {
+                if (item.stock == 0)
+                {
+                    Storage.Instance.avlTree.deleteElement(item, Medicine.CompareByName);
+                }
+                else if (item.stock != 0)
+                {
+                    Storage.Instance.medicinesReturn.Add(item);
+                }
+            }
+
+            IPagedList<Medicine> listMedicines = null;
+            List<Medicine> auxiliarMed = new List<Medicine>();
+            auxiliarMed = Storage.Instance.medicinesReturn;
+            listMedicines = auxiliarMed.ToPagedList(pageIndex, pageSize);
+            return View(listMedicines);
+            
         }
 
         //Resupply medicines

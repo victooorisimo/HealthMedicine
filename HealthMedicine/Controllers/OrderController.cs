@@ -3,13 +3,16 @@ using System;
 using System.IO;
 using System.Web;
 using System.Web.Mvc;
+using HealthMedicine.Services;
+using PagedList;
+using System.Linq;
 
 namespace HealthMedicine.Controllers {
     public class OrderController : Controller {
         // GET: Order
         public ActionResult Index() {
-            Order order = new Order();
-            return View(order.orders);
+            var orderList = Storage.Instance.orderList;
+            return View(orderList.ToList());
         }
 
         // GET: Order/Details/5
@@ -25,11 +28,17 @@ namespace HealthMedicine.Controllers {
         // POST: Order/Create
         [HttpPost]
         public ActionResult Create(FormCollection collection) {
-            try {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            } catch {
+            try{
+                var newOrder = new Order
+                {
+                    Name = collection["Name"],
+                    Address = collection["Address"],
+                    Nit = collection["Nit"]
+                };
+                newOrder.saveOrder();
+                return RedirectToAction("Index", "Medicine");
+            }
+            catch{
                 return View();
             }
         }
@@ -66,6 +75,17 @@ namespace HealthMedicine.Controllers {
             } catch {
                 return View();
             }
+        }
+
+        public ActionResult InitialPage()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult InitialPage(string add)
+        {
+            return RedirectToAction("Index");
         }
 
         [HttpPost]
@@ -135,7 +155,5 @@ namespace HealthMedicine.Controllers {
             }
 
         }
-
-
     }
 }

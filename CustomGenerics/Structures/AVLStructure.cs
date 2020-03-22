@@ -18,6 +18,18 @@ namespace CustomGenerics.Structures{
             DeleteValue(deleteElement, comparison);
         }
 
+        public T searchValue(T searchElement, Comparison<T> comparison)
+        {
+            if(!contains(root, searchElement, comparison))
+            {
+                return searchElement;
+            }
+            else
+            {
+                return default(T);
+            }
+        }
+
         public IEnumerator<T> GetEnumerator(){
             throw new NotImplementedException();
         }
