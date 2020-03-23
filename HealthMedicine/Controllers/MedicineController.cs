@@ -17,7 +17,6 @@ namespace HealthMedicine.Controllers
         {
             int pageSize = 5;
             int pageIndex = 1;
-            bool searchM;
             double Total = 0;
             pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
             if (!String.IsNullOrEmpty(searchMedicine) && !String.IsNullOrEmpty(quantity))
@@ -39,6 +38,7 @@ namespace HealthMedicine.Controllers
                         Storage.Instance.medicinesList.Find(s => s.name.Contains(found.name)).stock = newValue - element.stock;
                         Total = Convert.ToDouble(quantity) * found.price;
                         Storage.Instance.newOrder.Total = +Total;
+                        Storage.Instance.medicinesReturn.Add(found);
                         return View(elementToList.ToPagedList(pageIndex, pageSize));
                     }
             }

@@ -1,0 +1,94 @@
+﻿
+@{
+    ViewBag.Title = "FinalPage";
+}
+
+    <p>
+        @Html.ActionLink("Back for new order", "Index","Order")
+    </p>
+<table class="table">
+    <tr>
+        <th>
+            Identificator
+        </th>
+        <th>
+            Name
+        </th>
+        <th>
+            Description
+        </th>
+        <th>
+            Producer
+        </th>
+        <th>
+            Price
+        </th>
+        <th>
+            Stock
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in HealthMedicine.Services.Storage.Instance.medicinesReturn)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.idMedicine)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.producer)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.stock)
+            </td>
+        </tr>
+    }
+</table>
+
+<table class="table">
+    <tr>
+        <th>
+            Name
+        </th>
+        <th>
+            Address
+        </th>
+        <th>
+            Nit
+        </th>
+        <th>
+            Total
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in HealthMedicine.Services.Storage.Instance.orderList)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nit)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Total)
+            </td>
+        </tr>
+    }
+
+</table>
+
+
