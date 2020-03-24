@@ -22,6 +22,7 @@ namespace HealthMedicine.Services{
 
         public Order newOrder = new Order();
         public List<Order> orderList = new List<Order>();
+        public List<Medicine> medicinesOrder = new List<Medicine>();
         public List<Medicine> medicinesReturn = new List<Medicine>();
         public List<Medicine> medicinesList = new List<Medicine>();
         public AVLStructure<Medicine> avlTree = new AVLStructure<Medicine>();

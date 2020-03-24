@@ -15,11 +15,6 @@ namespace HealthMedicine.Controllers {
             return View(orderList.ToList());
         }
 
-        // GET: Order/Details/5
-        public ActionResult Details(int id) {
-            return View();
-        }
-
         // GET: Order/Create
         public ActionResult Create() {
             return View();
@@ -43,40 +38,6 @@ namespace HealthMedicine.Controllers {
             }
         }
 
-        // GET: Order/Edit/5
-        public ActionResult Edit(int id) {
-            return View();
-        }
-
-        // POST: Order/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection) {
-            try {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            } catch {
-                return View();
-            }
-        }
-
-        // GET: Order/Delete/5
-        public ActionResult Delete(int id) {
-            return View();
-        }
-
-        // POST: Order/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection) {
-            try {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            } catch {
-                return View();
-            }
-        }
-
         public ActionResult InitialPage()
         {
             return View();
@@ -92,6 +53,7 @@ namespace HealthMedicine.Controllers {
         public ActionResult LoadDocument(HttpPostedFileBase file){
             try{
                 var ubication = Server.MapPath($"~/Test/{file.FileName}");
+                int id=0;
                 file.SaveAs(ubication);
                 using (var fileStream = new FileStream(ubication, FileMode.Open)){
                     using (var streamReader = new StreamReader(fileStream)){
@@ -103,6 +65,9 @@ namespace HealthMedicine.Controllers {
                             if (parts[0] != ("id")){
                                 if (parts.Length == 6) {
                                     newMedicine.saveMedicineAvl(Convert.ToInt32(parts[0]), parts[1]);
+                                    id += 1;
+                                    newMedicine.idMedicine = id;
+                                    newMedicine.name = parts[1];
                                     newMedicine.description = parts[2];
                                     newMedicine.producer = parts[3];
                                     newMedicine.stock = Convert.ToInt32(parts[parts.Length - 1]);
@@ -133,6 +98,9 @@ namespace HealthMedicine.Controllers {
                                             if (module == 0)
                                             {
                                                 newMedicine.saveMedicineAvl(Convert.ToInt32(parts[0]), recolection[j]);
+                                                id += 1;
+                                                newMedicine.idMedicine = id;
+                                                newMedicine.name = parts[1];
                                                 newMedicine.stock = Convert.ToInt32(parts[parts.Length - 1]);
                                                 newMedicine.price = Convert.ToDouble((parts[parts.Length - 2]).Substring(1,
                                                     (parts[parts.Length - 2].Length) - 1));

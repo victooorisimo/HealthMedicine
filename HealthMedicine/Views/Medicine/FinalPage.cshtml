@@ -3,9 +3,9 @@
     ViewBag.Title = "FinalPage";
 }
 
-    <p>
-        @Html.ActionLink("Back for new order", "Index","Order")
-    </p>
+    </br></br></br>
+    <h2>Thanks for your purchase!</h2>
+
 <table class="table">
     <tr>
         <th>
@@ -29,7 +29,7 @@
         <th></th>
     </tr>
 
-    @foreach (var item in HealthMedicine.Services.Storage.Instance.medicinesReturn)
+    @foreach (var item in HealthMedicine.Services.Storage.Instance.medicinesOrder)
     {
         <tr>
             <td>
@@ -90,5 +90,7 @@
     }
 
 </table>
-
+<p>
+    @Html.ActionLink("Back for new order", "Index", "Order")
+</p>
 

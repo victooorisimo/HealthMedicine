@@ -20,7 +20,7 @@ namespace CustomGenerics.Structures{
 
         public T searchValue(T searchElement, Comparison<T> comparison)
         {
-            if(!contains(root, searchElement, comparison))
+            if(contains(root, searchElement, comparison))
             {
                 return searchElement;
             }

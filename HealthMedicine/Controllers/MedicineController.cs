@@ -15,19 +15,21 @@ namespace HealthMedicine.Controllers
         // GET: Medicine
         public ActionResult Index(FormCollection collection, int? page, string searchMedicine, string quantity, string resupply)
         {
-            int pageSize = 5;
-            int pageIndex = 1;
-            double Total = 0;
-            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
-            if (!String.IsNullOrEmpty(searchMedicine) && !String.IsNullOrEmpty(quantity))
+            try
             {
-                var element = new Medicine
+                int pageSize = 5;
+                int pageIndex = 1;
+                double Total = 0;
+                pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+                if (!String.IsNullOrEmpty(searchMedicine) && !String.IsNullOrEmpty(quantity))
                 {
-                    name = collection["searchMedicine"],
-                    stock = int.Parse(collection["quantity"])
-                };
+                    var element = new Medicine
+                    {
+                        name = collection["searchMedicine"],
+                        stock = int.Parse(collection["quantity"])
+                    };
 
-                var found = Storage.Instance.avlTree.searchValue(element, Medicine.CompareByName);
+                    var found = Storage.Instance.avlTree.searchValue(element, Medicine.CompareByName);
                     var elementToList = from s in Storage.Instance.medicinesList
                                         select s;
                     elementToList = elementToList.Where(s => s.name.Contains(found.name));
@@ -39,35 +41,42 @@ namespace HealthMedicine.Controllers
                         Total = Convert.ToDouble(quantity) * found.price;
                         Storage.Instance.newOrder.Total = +Total;
                         Storage.Instance.medicinesReturn.Add(found);
+                        Storage.Instance.medicinesOrder.Add(found);
                         return View(elementToList.ToPagedList(pageIndex, pageSize));
                     }
-            }
-
-            if (!String.IsNullOrEmpty(resupply))
-            {
-                Resupply();
-            }
-
-            Storage.Instance.medicinesReturn.Clear();
-
-            foreach (var item in Storage.Instance.medicinesList)
-            {
-                if (item.stock == 0)
-                {
-                    Storage.Instance.avlTree.deleteElement(item, Medicine.CompareByName);
                 }
-                else if (item.stock != 0)
+
+                if (!String.IsNullOrEmpty(resupply))
                 {
-                    Storage.Instance.medicinesReturn.Add(item);
+                    Resupply();
                 }
+
+                Storage.Instance.medicinesReturn.Clear();
+
+                foreach (var item in Storage.Instance.medicinesList)
+                {
+                    if (item.stock == 0)
+                    {
+                        Storage.Instance.avlTree.deleteElement(item, Medicine.CompareByName);
+                    }
+                    else if (item.stock != 0)
+                    {
+                        Storage.Instance.medicinesReturn.Add(item);
+                    }
+                }
+
+                IPagedList<Medicine> listMedicines = null;
+                List<Medicine> auxiliarMed = new List<Medicine>();
+                auxiliarMed = Storage.Instance.medicinesReturn;
+                listMedicines = auxiliarMed.ToPagedList(pageIndex, pageSize);
+                return View(listMedicines);
+
+            }
+            catch (Exception)
+            {
+                return View();
             }
 
-            IPagedList<Medicine> listMedicines = null;
-            List<Medicine> auxiliarMed = new List<Medicine>();
-            auxiliarMed = Storage.Instance.medicinesList;
-            listMedicines = auxiliarMed.ToPagedList(pageIndex, pageSize);
-            return View(listMedicines); 
-            
         }
 
         //Resupply medicines
@@ -85,76 +94,9 @@ namespace HealthMedicine.Controllers
             }
         }
 
-        // GET: Medicine/Details/5
-        public ActionResult Details(int id)
+        public ActionResult FinalPage()
         {
             return View();
-        }
-
-        // GET: Medicine/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Medicine/Create
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Medicine/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: Medicine/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Medicine/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Medicine/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
         }
     }
 }

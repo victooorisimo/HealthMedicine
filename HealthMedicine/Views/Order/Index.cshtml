@@ -4,58 +4,15 @@
     ViewBag.Title = "Orders";
 }
 
-<h2>Order list</h2>
-
-<p>
-    @Html.ActionLink("Create order", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Address)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Nit)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Total)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Address)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nit)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Total)
-            </td>
-        </tr>
-    }
-
-</table>
-
-<h2>Load Document</h2>
+    <h1 class="text-center">Load records from file</h1>
 
 @using (Html.BeginForm("LoadDocument", "Order", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     <hr />
-    <h4 class="text-info">Load records from file</h4>
-    <div class="agroup-class">
-        <input type="file" name="file" accept=".csv" />
+    <div class="agroup-class text-center">
+        <input class="text-center" type="file" name="file" accept=".csv" />
     </div>
-    <div class="agroup-class">
+    <div class="agroup-class text-center">
         <input type="submit" value="Load file" class="btn-default" />
     </div>
 }
