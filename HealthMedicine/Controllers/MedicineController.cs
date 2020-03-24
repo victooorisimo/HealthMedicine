@@ -64,9 +64,9 @@ namespace HealthMedicine.Controllers
 
             IPagedList<Medicine> listMedicines = null;
             List<Medicine> auxiliarMed = new List<Medicine>();
-            auxiliarMed = Storage.Instance.medicinesReturn;
+            auxiliarMed = Storage.Instance.medicinesList;
             listMedicines = auxiliarMed.ToPagedList(pageIndex, pageSize);
-            return View(listMedicines);
+            return View(listMedicines); 
             
         }
 

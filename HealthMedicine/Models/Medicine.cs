@@ -10,7 +10,7 @@ namespace HealthMedicine.Models {
         public String producer { get; set; }
         public double price { get; set; }
         public int stock { get; set; }
-
+        
         public Medicine() {
 
         }

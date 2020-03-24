@@ -10,7 +10,7 @@ using System.Linq;
 namespace HealthMedicine.Controllers {
     public class OrderController : Controller {
         // GET: Order
-        public ActionResult Index() {
+        public ActionResult Index(string directory) {
             var orderList = Storage.Instance.orderList;
             return View(orderList.ToList());
         }
