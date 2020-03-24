@@ -1,7 +1,9 @@
 ﻿using System;
 
 namespace CustomGenerics.Structures {
+
     class Node<T> {
+
         private Node<T> leftNode, rightNode;
         private int height, bf;
         private T valueNode;
@@ -45,6 +47,7 @@ namespace CustomGenerics.Structures {
             Node<T> newRoot = nodeRotate.rightNode;
             Node<T> temp = nodeRotate.rightNode.leftNode;
             nodeRotate.rightNode.leftNode = nodeRotate;
+            nodeRotate.rightNode = temp;
             nodeRotate = updateHeight(nodeRotate);
             return newRoot;
         }
