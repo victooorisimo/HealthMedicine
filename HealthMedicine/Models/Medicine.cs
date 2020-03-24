@@ -24,6 +24,13 @@ namespace HealthMedicine.Models {
             return true;
         }
 
+        public void saveMedicineAvl(int id, String name){
+            Medicine medicine = new Medicine();
+            medicine.idMedicine = id;
+            medicine.name = name;
+            Storage.Instance.avlTree.addElement(medicine, Medicine.CompareByName);
+        }
+
         public bool deleteMedicine() {
             try{
                 Storage.Instance.avlTree.deleteElement(this, Medicine.CompareByName);

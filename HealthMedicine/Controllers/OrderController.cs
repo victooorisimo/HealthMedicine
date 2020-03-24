@@ -95,27 +95,30 @@ namespace HealthMedicine.Controllers {
                 file.SaveAs(ubication);
                 using (var fileStream = new FileStream(ubication, FileMode.Open)){
                     using (var streamReader = new StreamReader(fileStream)){
-                        Medicine newMedicine = new Medicine();
+                        Medicine newMedicine;
                         while (streamReader.Peek() >= 0){
+                            newMedicine = new Medicine();
                             String lineReader = streamReader.ReadLine();
                             String[] parts = lineReader.Split(',');
                             if (parts[0] != ("id")){
                                 if (parts.Length == 6) {
-                                    newMedicine.idMedicine = Convert.ToInt32(parts[0]);
-                                    newMedicine.name = parts[1];
-                                    newMedicine.saveMedicine(true);
+                                    newMedicine.saveMedicineAvl(Convert.ToInt32(parts[0]), parts[1]);
                                     newMedicine.description = parts[2];
                                     newMedicine.producer = parts[3];
                                     newMedicine.stock = Convert.ToInt32(parts[parts.Length - 1]);
-                                    newMedicine.price = Convert.ToDouble((parts[parts.Length - 2]).Substring(1, 
+                                    newMedicine.price = Convert.ToDouble((parts[parts.Length - 2]).Substring(1,
                                         (parts[parts.Length - 2].Length) - 1));
                                     newMedicine.saveMedicine(false);
-                                } else {
+                                }else {
                                     String data = "";
-                                    for (int i = 0; i < parts.Length; i++){
-                                        if ((parts[0] != parts[i])){
-                                            if (parts[parts.Length - 1] != parts[i]){
-                                                if (parts[parts.Length - 2] != parts[i]){
+                                    for (int i = 0; i < parts.Length; i++)
+                                    {
+                                        if ((parts[0] != parts[i]))
+                                        {
+                                            if (parts[parts.Length - 1] != parts[i])
+                                            {
+                                                if (parts[parts.Length - 2] != parts[i])
+                                                {
                                                     data = data + parts[i];
                                                 }
                                             }
@@ -123,20 +126,26 @@ namespace HealthMedicine.Controllers {
                                     }
                                     String[] recolection = data.Split('"');
                                     int module = 0;
-                                    for (int j = 0; j < recolection.Length; j++){
-                                        if (recolection[j] != ""){
-                                            if (module == 0){
-                                                newMedicine.name = recolection[j];
-                                                newMedicine.idMedicine = Convert.ToInt32(parts[0]);
-                                                newMedicine.saveMedicine(true);
+                                    for (int j = 0; j < recolection.Length; j++)
+                                    {
+                                        if (recolection[j] != "")
+                                        {
+                                            if (module == 0)
+                                            {
+                                                newMedicine.saveMedicineAvl(Convert.ToInt32(parts[0]), recolection[j]);
                                                 newMedicine.stock = Convert.ToInt32(parts[parts.Length - 1]);
                                                 newMedicine.price = Convert.ToDouble((parts[parts.Length - 2]).Substring(1,
                                                     (parts[parts.Length - 2].Length) - 1));
                                                 module++;
-                                            }else if (module == 1){
+
+                                            }
+                                            else if (module == 1)
+                                            {
                                                 newMedicine.description = recolection[j];
                                                 module++;
-                                            }else{
+                                            }
+                                            else
+                                            {
                                                 newMedicine.producer = recolection[j];
                                             }
                                         }
@@ -144,6 +153,7 @@ namespace HealthMedicine.Controllers {
                                     newMedicine.saveMedicine(false);
                                 }
                             }
+                        
                         }
                     }
 
