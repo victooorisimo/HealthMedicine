@@ -4,15 +4,18 @@
     ViewBag.Title = "Orders";
 }
 
-    <h1 class="text-center">Load records from file</h1>
+<h1 class="uk-heading-line uk-text-center"><span>Load your document</span></h1>
 
 @using (Html.BeginForm("LoadDocument", "Order", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     <hr />
-    <div class="agroup-class text-center">
-        <input class="text-center" type="file" name="file" accept=".csv" />
+    <div class="agroup-class">
+        <input type="file" class="uk-align-center" name="file" accept=".csv" />
     </div>
-    <div class="agroup-class text-center">
-        <input type="submit" value="Load file" class="btn-default" />
-    </div>
+    <button class="uk-button uk-button-default uk-align-center">Submit</button>
+}
+
+@using (Html.BeginForm("Create", "Order", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <button class="uk-button uk-button-default uk-align-center">Start</button>
 }

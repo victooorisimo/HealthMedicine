@@ -3,93 +3,90 @@
     ViewBag.Title = "FinalPage";
 }
 
-    </br></br></br>
-    <h2>Thanks for your purchase!</h2>
+    @*</br></br></br>*@
+<h1 class="uk-heading-line uk-text-center"><span>Thank for your purchase!</span></h1>
 
-<table class="table">
-    <tr>
-        <th>
-            Identificator
-        </th>
-        <th>
-            Name
-        </th>
-        <th>
-            Description
-        </th>
-        <th>
-            Producer
-        </th>
-        <th>
-            Price
-        </th>
-        <th>
-            Stock
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in HealthMedicine.Services.Storage.Instance.medicinesOrder)
-    {
+<h4 class="uk-heading-line uk-text-center"><span>Your Medicines</span></h4>
+<table class="uk-table uk-table-divider">
+    <thead>
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.idMedicine)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.producer)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.stock)
-            </td>
+            <th>Identificator</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Producer</th>
+            <th>Price</th>
+            <th>
+                Stock
+            </th>
+            <th></th>
         </tr>
-    }
-</table>
+    </thead>
 
-<table class="table">
-    <tr>
-        <th>
-            Name
-        </th>
-        <th>
-            Address
-        </th>
-        <th>
-            Nit
-        </th>
-        <th>
-            Total
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in HealthMedicine.Services.Storage.Instance.orderList)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Address)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nit)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Total)
-            </td>
-        </tr>
-    }
+    <tbody>
+        @foreach (var item in HealthMedicine.Services.Storage.Instance.medicinesOrder)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.idMedicine)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.producer)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.stock)
+                </td>
+            </tr>
+        }
+    </tbody>
 
 </table>
+<h4 class="uk-heading-line uk-text-center"><span>User</span></h4>
+<table class="uk-table uk-table-divider">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Nit</th>
+            <th>Total</th>
+            <th>
+                Stock
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in HealthMedicine.Services.Storage.Instance.orderList)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nit)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Total)
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+
+
 <p>
     @Html.ActionLink("Back for new order", "Index", "Order")
 </p>

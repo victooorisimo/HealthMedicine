@@ -55,7 +55,7 @@ namespace HealthMedicine.Controllers
 
                 foreach (var item in Storage.Instance.medicinesList)
                 {
-                    if (item.stock == 0)
+                    if (item.stock <= 0)
                     {
                         Storage.Instance.avlTree.deleteElement(item, Medicine.CompareByName);
                     }
@@ -85,7 +85,7 @@ namespace HealthMedicine.Controllers
             Random rnd = new Random();
             foreach (var item in Storage.Instance.medicinesList)
             {
-                if (item.stock == 0)
+                if (item.stock <= 0)
                 {
                     int random = rnd.Next(1, 15);
                     item.stock = random;

@@ -4,46 +4,48 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Create</h2>
+    <h1 class="uk-heading-line uk-text-center"><span>Create your user</span></h1>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
+    <form>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+
+        <div class="uk-margin uk-align-center">
+            <div class="uk-align-center">
+                <h4 class="uk-heading-line uk-text-center"><span>Name</span></h4>
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "uk-input uk-form-width-medium uk-align-center" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "uk-form-danger" })
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+
+        <div class="uk-align-center">
+            <div class="uk-align-center uk-align-center@m">
+                <h4 class="uk-heading-line uk-text-center"><span>Address</span></h4>
+                @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "uk-input uk-form-width-medium uk-align-center" } })
+                @Html.ValidationMessageFor(model => model.Address, "", new { @class = "uk-form-danger" })
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Nit, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Nit, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Nit, "", new { @class = "text-danger" })
+        <div class="uk-align-center">
+            <div class="uk-align-center uk-align-center">
+                <h4 class="uk-heading-line uk-text-center"><span>Nit</span></h4>
+                @Html.EditorFor(model => model.Nit, new { htmlAttributes = new { @class = "uk-input uk-form-width-medium uk-align-center" } })
+                @Html.ValidationMessageFor(model => model.Nit, "", new { @class = "uk-form-danger" })
             </div>
         </div>
 
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn-default" />
+                <button class="uk-button uk-button-default uk-align-center">Create Order</button>
             </div>
         </div>
-    </div>
+    </form>
 }
 
 
