@@ -24,6 +24,7 @@ namespace HealthMedicine
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/uikit.css",
+                      "~/Content/PagedList.css",
                       "~/Content/site.css"));
         }
     }

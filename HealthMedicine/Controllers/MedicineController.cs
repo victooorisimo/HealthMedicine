@@ -12,14 +12,14 @@ namespace HealthMedicine.Controllers
 {
     public class MedicineController : Controller
     {
+        double Total = 0;
         // GET: Medicine
-        public ActionResult Index(FormCollection collection, int? page, string searchMedicine, string quantity, string resupply)
+        public ActionResult Index(FormCollection collection, int? page, string searchMedicine, string quantity, string resupply, string backButton)
         {
             try
             {
                 int pageSize = 5;
                 int pageIndex = 1;
-                double Total = 0;
                 pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
                 if (!String.IsNullOrEmpty(searchMedicine) && !String.IsNullOrEmpty(quantity))
                 {
@@ -29,27 +29,32 @@ namespace HealthMedicine.Controllers
                         stock = int.Parse(collection["quantity"])
                     };
 
-                    var found = Storage.Instance.avlTree.searchValue(element, Medicine.CompareByName);
-                    var elementToList = from s in Storage.Instance.medicinesList
-                                        select s;
-                    elementToList = elementToList.Where(s => s.name.Contains(found.name));
-                    if (element.stock <= found.stock)
+                    if(Storage.Instance.avlTree.searchValue(element, Medicine.CompareByName))
                     {
+                        var found = Storage.Instance.medicinesList.Find(s => s.name.Contains(element.name));
+                        var elementToList = from s in Storage.Instance.medicinesList
+                                            select s;
                         elementToList = elementToList.Where(s => s.name.Contains(found.name));
-                        int newValue = Storage.Instance.medicinesList.Find(s => s.name.Contains(found.name)).stock;
-                        Storage.Instance.medicinesList.Find(s => s.name.Contains(found.name)).stock = newValue - element.stock;
-                        Total = Convert.ToDouble(quantity) * found.price;
-                        Storage.Instance.newOrder.Total = +Total;
-                        Storage.Instance.medicinesReturn.Add(found);
-                        Storage.Instance.medicinesOrder.Add(found);
-                        return View(elementToList.ToPagedList(pageIndex, pageSize));
+                        if ((element.stock <= found.stock) && ((found.stock - element.stock) >= 0))
+                        {
+                            elementToList = elementToList.Where(s => s.name.Contains(found.name));
+                            var foundValue = Storage.Instance.medicinesList.Find(s => s.name.Contains(found.name));
+                            int newValue = Storage.Instance.medicinesList.Find(s => s.name.Contains(found.name)).stock;
+                            Storage.Instance.medicinesList.Find(s => s.name.Contains(found.name)).stock = newValue - element.stock;
+                            Total = Convert.ToDouble(quantity) * foundValue.price;
+                            Medicine.quantityMedicines = quantity;
+                            Storage.Instance.newOrder.Total += Total;
+                            Storage.Instance.medicinesReturn.Add(found);
+                            Storage.Instance.medicinesOrder.Add(foundValue); 
+                            return View(elementToList.ToPagedList(pageIndex, pageSize));
+                        }
                     }
+                    
                 }
 
-                if (!String.IsNullOrEmpty(resupply))
-                {
-                    Resupply();
-                }
+                if (!String.IsNullOrEmpty(resupply)) { Resupply(); }
+
+                if (!String.IsNullOrEmpty(backButton)) { return View(); }
 
                 Storage.Instance.medicinesReturn.Clear();
 

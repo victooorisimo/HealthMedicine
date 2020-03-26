@@ -18,15 +18,12 @@ namespace CustomGenerics.Structures{
             DeleteValue(deleteElement, comparison);
         }
 
-        public T searchValue(T searchElement, Comparison<T> comparison)
-        {
-            if(contains(root, searchElement, comparison))
-            {
-                return searchElement;
+        public bool searchValue(T searchElement, Comparison<T> comparison){
+            if(contains(root, searchElement, comparison)) {
+                return true;
             }
-            else
-            {
-                return default(T);
+            else {
+                return true;
             }
         }
 

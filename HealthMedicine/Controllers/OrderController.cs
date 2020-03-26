@@ -11,7 +11,12 @@ namespace HealthMedicine.Controllers {
     public class OrderController : Controller {
         // GET: Order
         public ActionResult Index(string directory) {
+            if (Storage.Instance.orderList.Count < 1) {
+                Storage.Instance.orderList.Clear();
+                Storage.Instance.medicinesOrder.Clear();
+            }
             var orderList = Storage.Instance.orderList;
+
             return View(orderList.ToList());
         }
 
@@ -126,7 +131,7 @@ namespace HealthMedicine.Controllers {
                     }
 
                 }
-                return RedirectToAction("Index");
+                return RedirectToAction("Create");
             }catch (Exception e){
                 e.ToString();
                 return RedirectToAction("Index");
