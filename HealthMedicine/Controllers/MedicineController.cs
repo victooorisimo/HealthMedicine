@@ -45,7 +45,7 @@ namespace HealthMedicine.Controllers
                             Medicine.quantityMedicines = quantity;
                             Storage.Instance.newOrder.Total += Total;
                             Storage.Instance.medicinesReturn.Add(found);
-                            Storage.Instance.medicinesOrder.Add(foundValue); 
+                            Storage.Instance.medicinesOrder.Add(foundValue);
                             return View(elementToList.ToPagedList(pageIndex, pageSize));
                         }
                     }
