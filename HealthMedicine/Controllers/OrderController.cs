@@ -3,18 +3,21 @@ using System;
 using System.IO;
 using System.Web;
 using System.Web.Mvc;
+using HealthMedicine.Services;
+using PagedList;
+using System.Linq;
 
 namespace HealthMedicine.Controllers {
     public class OrderController : Controller {
         // GET: Order
-        public ActionResult Index() {
-            Order order = new Order();
-            return View(order.orders);
-        }
+        public ActionResult Index(string directory) {
+            if (Storage.Instance.orderList.Count < 1) {
+                Storage.Instance.orderList.Clear();
+                Storage.Instance.medicinesOrder.Clear();
+            }
+            var orderList = Storage.Instance.orderList;
 
-        // GET: Order/Details/5
-        public ActionResult Details(int id) {
-            return View();
+            return View(orderList.ToList());
         }
 
         // GET: Order/Create
@@ -25,53 +28,37 @@ namespace HealthMedicine.Controllers {
         // POST: Order/Create
         [HttpPost]
         public ActionResult Create(FormCollection collection) {
-            try {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            } catch {
+            try{
+                var newOrder = new Order
+                {
+                    Name = collection["Name"],
+                    Address = collection["Address"],
+                    Nit = collection["Nit"]
+                };
+                newOrder.saveOrder();
+                return RedirectToAction("Index", "Medicine");
+            }
+            catch{
                 return View();
             }
         }
 
-        // GET: Order/Edit/5
-        public ActionResult Edit(int id) {
+        public ActionResult InitialPage()
+        {
             return View();
         }
 
-        // POST: Order/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection) {
-            try {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            } catch {
-                return View();
-            }
-        }
-
-        // GET: Order/Delete/5
-        public ActionResult Delete(int id) {
-            return View();
-        }
-
-        // POST: Order/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection) {
-            try {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            } catch {
-                return View();
-            }
+        public ActionResult InitialPage(string add)
+        {
+            return RedirectToAction("Index");
         }
 
         [HttpPost]
         public ActionResult LoadDocument(HttpPostedFileBase file){
             try{
                 var ubication = Server.MapPath($"~/Test/{file.FileName}");
+                int id=0;
                 file.SaveAs(ubication);
                 using (var fileStream = new FileStream(ubication, FileMode.Open)){
                     using (var streamReader = new StreamReader(fileStream)){
@@ -83,6 +70,9 @@ namespace HealthMedicine.Controllers {
                             if (parts[0] != ("id")){
                                 if (parts.Length == 6) {
                                     newMedicine.saveMedicineAvl(Convert.ToInt32(parts[0]), parts[1]);
+                                    id += 1;
+                                    newMedicine.idMedicine = id;
+                                    newMedicine.name = parts[1];
                                     newMedicine.description = parts[2];
                                     newMedicine.producer = parts[3];
                                     newMedicine.stock = Convert.ToInt32(parts[parts.Length - 1]);
@@ -113,6 +103,9 @@ namespace HealthMedicine.Controllers {
                                             if (module == 0)
                                             {
                                                 newMedicine.saveMedicineAvl(Convert.ToInt32(parts[0]), recolection[j]);
+                                                id += 1;
+                                                newMedicine.idMedicine = id;
+                                                newMedicine.name = parts[1];
                                                 newMedicine.stock = Convert.ToInt32(parts[parts.Length - 1]);
                                                 newMedicine.price = Convert.ToDouble((parts[parts.Length - 2]).Substring(1,
                                                     (parts[parts.Length - 2].Length) - 1));
@@ -138,14 +131,12 @@ namespace HealthMedicine.Controllers {
                     }
 
                 }
-                return RedirectToAction("Index");
+                return RedirectToAction("Create");
             }catch (Exception e){
                 e.ToString();
                 return RedirectToAction("Index");
             }
 
         }
-
-
     }
 }
