@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HealthMedicine.Services;
+using System;
 using System.Collections.Generic;
 
 namespace HealthMedicine.Models {
@@ -12,5 +13,18 @@ namespace HealthMedicine.Models {
         public double Total { get; set; }
 
         public List<Order> orders = new List<Order>();
+
+        public bool saveOrder(){
+            try{
+                codeClient++;
+                this.ClientId = codeClient;
+                Storage.Instance.newOrder = this;
+                Storage.Instance.orderList.Add(Storage.Instance.newOrder);
+                return true;
+            }catch{
+                return false;
+            }
+        } 
+
     }
 }

@@ -1,0 +1,100 @@
+﻿@using PagedList.Mvc;
+@model PagedList.IPagedList<HealthMedicine.Models.Medicine>
+
+
+@{
+    ViewBag.Title = "Search and add medicines";
+}
+    <br />
+<h1 class="uk-heading-line uk-text-center">Search & add medicines</h1>
+
+<br />
+@using (Html.BeginForm("Index", "Medicine", FormMethod.Post))
+{
+    <form class="uk-align-center">
+        <h4 class="uk-heading-line uk-text-center"><span>Search medicine</span></h4>
+        @Html.TextBox("searchMedicine", null, new { @class = "uk-input uk-form-width-medium uk-align-center" })
+        @*@Html.TextBox("searchMedicine")*@
+
+        <h4 class="uk-heading-line uk-text-center"><span>Quantity</span></h4>
+        @*@Html.TextBox("quantity")*@
+        @Html.TextBox("quantity", null, new { @class = "uk-input uk-form-width-medium uk-align-center" })
+        <button class="uk-button uk-button-default uk-align-center">Go</button>
+    </form>
+}
+<br />
+
+@using (Html.BeginForm("Index", "Medicine", FormMethod.Post))
+{
+    <button class="uk-button uk-button-default uk-align-center">Back</button>
+}
+
+<table class="uk-table uk-table-divider">
+    <thead>
+        <tr>
+            <th>Identificador</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Producer</th>
+            <th>Price</th>
+            <th>Stock</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.idMedicine)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.producer)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.stock)
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+
+
+
+
+
+
+@using (Html.BeginForm("FinalPage", "Medicine", FormMethod.Post))
+{
+    <button class="uk-button uk-button-default uk-align-center">Save</button>
+}
+
+
+@using (Html.BeginForm("Index", "Medicine", FormMethod.Post))
+{
+    <button class="uk-button uk-button-default uk-align-center" value="resupply" name="resupply">Resupply</button>
+}
+
+
+<div id="container" style="margin-left: 20px">
+    <p></p>
+    <p></p>
+    <div class="uk-form-label" style="margin-left: 400px">
+        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+        of @Model.PageCount   @Html.PagedListPager(Model, page => Url.Action("Index", "Medicine", new { page }))
+    </div>
+
+</div>
+
+
+

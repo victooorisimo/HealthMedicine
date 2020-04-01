@@ -1,5 +1,10 @@
 C:\Users\vict_\source\repos\HealthMedicine\CustomGenerics\bin\Debug\CustomGenerics.dll
 C:\Users\vict_\source\repos\HealthMedicine\CustomGenerics\bin\Debug\CustomGenerics.pdb
-C:\Users\vict_\source\repos\HealthMedicine\CustomGenerics\obj\Debug\CustomGenerics.csprojAssemblyReference.cache
 C:\Users\vict_\source\repos\HealthMedicine\CustomGenerics\obj\Debug\CustomGenerics.dll
 C:\Users\vict_\source\repos\HealthMedicine\CustomGenerics\obj\Debug\CustomGenerics.pdb
+C:\Users\vict_\source\repos\HealthMedicine\CustomGenerics\obj\Debug\CustomGenerics.csprojAssemblyReference.cache
+C:\Users\ayalr\source\repos\HealthMedicine\CustomGenerics\bin\Debug\CustomGenerics.dll
+C:\Users\ayalr\source\repos\HealthMedicine\CustomGenerics\bin\Debug\CustomGenerics.pdb
+C:\Users\ayalr\source\repos\HealthMedicine\CustomGenerics\obj\Debug\CustomGenerics.csprojAssemblyReference.cache
+C:\Users\ayalr\source\repos\HealthMedicine\CustomGenerics\obj\Debug\CustomGenerics.dll
+C:\Users\ayalr\source\repos\HealthMedicine\CustomGenerics\obj\Debug\CustomGenerics.pdb
