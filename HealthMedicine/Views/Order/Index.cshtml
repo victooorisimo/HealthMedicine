@@ -4,11 +4,12 @@
     ViewBag.Title = "Orders";
 }
 
-<h1 class="uk-heading-line uk-text-center"><span>Load your document</span></h1>
-
+<br>
+<h1 class="uk-heading-line uk-text-center">Upload document</h1>
+<br>
+<br>  
 @using (Html.BeginForm("LoadDocument", "Order", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
-    <hr />
     <div class="agroup-class">
         <input type="file" class="uk-align-center" name="file" accept=".csv" />
     </div>

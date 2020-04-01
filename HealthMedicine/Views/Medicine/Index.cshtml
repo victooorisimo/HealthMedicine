@@ -5,14 +5,14 @@
 @{
     ViewBag.Title = "Search and add medicines";
 }
+    <br />
+<h1 class="uk-heading-line uk-text-center">Search & add medicines</h1>
 
-<h1 class="uk-heading-line uk-text-center"><span>Search and add medicines</span></h1>
-
-<hr />
+<br />
 @using (Html.BeginForm("Index", "Medicine", FormMethod.Post))
 {
     <form class="uk-align-center">
-        <h4 class="uk-heading-line uk-text-center"><span>Search Medicine</span></h4>
+        <h4 class="uk-heading-line uk-text-center"><span>Search medicine</span></h4>
         @Html.TextBox("searchMedicine", null, new { @class = "uk-input uk-form-width-medium uk-align-center" })
         @*@Html.TextBox("searchMedicine")*@
 
